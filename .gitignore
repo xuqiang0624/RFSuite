@@ -1,0 +1,45 @@
+# ============================================================================
+# RFSuite .gitignore
+#
+# 仓库里只留「源码 + 文档 + 构建脚本」：编译产物、运行库、本机 IDE 配置
+# 都不进版本管理。产物一旦提交，历史里会一直留着，仓库体积也难再收回来。
+# ============================================================================
+
+# ---- 编译产物与发布包 ----
+build/
+build-*/
+release/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+*.o
+*.obj
+*.moc
+moc_*.cpp
+qrc_*.cpp
+ui_*.h
+*.exe
+*.dll
+*.so
+*.a
+*.lib
+*.pdb
+*.ilk
+
+# ---- 运行时生成物 ----
+logs/
+*.db
+*.db-journal
+*.log
+RFSuite.ini
+
+# ---- IDE 与系统 ----
+*.user
+*.user.*
+.qtcreator/
+.vs/
+.vscode/
+.idea/
+Thumbs.db
+Desktop.ini
