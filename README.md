@@ -3,7 +3,7 @@
 基于 Qt 6 / C++17 的仪器监控上位机，用于接收测量设备回传的频谱数据，
 完成实时显示、瀑布图回溯、门限报警、历史数据存储与仪器程控。
 
-> 当前状态：**开发中**。本仓库按功能迭代逐次提交，每次提交对应一个可编译的节点。
+> 当前版本：工程骨架与最小主窗口已就绪，采集、显示、通信与存储能力按模块逐步加入。
 
 ## 功能设计
 
@@ -31,8 +31,8 @@ RFSuite/
 └── tests/                # 自测入口（--selftest=N）
 ```
 
-> 上表是**目标结构**。当前仓库仅有 `README.md`、`.gitignore` 和 `docs/开发计划.md`；
-> `CMakeLists.txt`、`src/` 等随迭代逐步补齐。
+> 当前已建立 `CMakeLists.txt` 与 `src/app` 主窗口骨架；
+> `core`、`widgets`、`labs`、`tests` 随对应模块迭代补齐。
 
 ## 构建
 
@@ -45,16 +45,15 @@ RFSuite/
 cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Debug \
       -DCMAKE_PREFIX_PATH=D:/Qt/6.11.2/mingw_64
 cmake --build build --parallel 4
-./build/RFSuite.exe                 # 主窗口
-./build/RFSuite.exe --selftest=6   # 环形缓冲并发压测（10 万帧）
-./build/RFSuite.exe --selftest=16  # 帧协议粘包/半包/异常恢复
+./build/RFSuite.exe                 # 启动主窗口
 ```
 
+`--lab=N` 与 `--selftest=N` 实验入口随对应模块加入后启用。
 `build/` 与 `release/` 不纳入版本管理；发布时用 `windeployqt` 补齐运行库。
 
 ## 开发约定
 
-- 提交信息用 `dayNN: <做了什么>` / `fix:` / `docs:` / `refactor:`，一条提交只做一件事；
+- 提交信息使用 `feat:` / `fix:` / `refactor:` / `docs:` / `test:` 等语义化前缀，一条提交只做一件事；
 - 每个节点必须能编译通过才提交；
 - 阶段结束打 `git tag`，交付版本打 `v1.0.0`；
 - 文件头写明职责与设计边界，成员 `m_` 前缀、常量 `k` 前缀，注释随代码同步更新。
