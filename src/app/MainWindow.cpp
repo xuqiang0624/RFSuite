@@ -1,22 +1,25 @@
 /**
  * @file app/MainWindow.cpp
- * @brief 主窗口实现：界面装配入口。
+ * @brief 主窗口实现
  */
 
 #include "app/MainWindow.h"
 
+#include <QLabel>
+#include <QStatusBar>
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
-    buildUi();
-}
-
-MainWindow::~MainWindow() = default;
-
-void MainWindow::buildUi()
-{
-    // 标题与初始尺寸属于装配层配置；工具栏、停靠面板与各显示控件
-    // 随功能迭代在此扩展，保持本函数只做布局与接线。
     setWindowTitle(QStringLiteral("RFSuite · 射频测量上位机"));
-    resize(960, 600);
+    resize(1200, 760);
+
+    // 1. 中央占位，待显示模块接入后替换
+    auto *tip = new QLabel(QStringLiteral("显示模块尚未接入"), this);
+    tip->setAlignment(Qt::AlignCenter);
+    setCentralWidget(tip);
+
+    // 2. 状态栏用于显示运行状态
+    m_statusLabel = new QLabel(QStringLiteral("就绪"), this);
+    statusBar()->addWidget(m_statusLabel);
 }

@@ -1,23 +1,26 @@
 /**
  * @file app/MainWindow.h
- * @brief 主窗口：承载界面装配与模块间接线。
+ * @brief 主窗口：界面装配与模块间接线入口
  *
- * 设计边界：本类只负责窗口结构与信号槽连接，不实现采集、协议或存储逻辑；
- * 各功能以独立类接入，依赖方向保持单向向下。
+ * 职责：提供主窗口骨架与状态栏；后续功能以独立模块接入，
+ * 对象间连接集中在本类完成。
+ *
+ * 设计边界：主窗口不实现协议解析、绘图算法与 SQL 语句。
  */
 
 #pragma once
 
 #include <QMainWindow>
 
+class QLabel;
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
-
 public:
     explicit MainWindow(QWidget *parent = nullptr);
-    ~MainWindow() override;
+    ~MainWindow() override = default;
 
 private:
-    void buildUi();
+    QLabel *m_statusLabel = nullptr;    ///< 状态栏左侧提示
 };

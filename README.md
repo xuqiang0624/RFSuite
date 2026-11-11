@@ -3,7 +3,7 @@
 基于 Qt 6 / C++17 的仪器监控上位机，用于接收测量设备回传的频谱数据，
 完成实时显示、瀑布图回溯、门限报警、历史数据存储与仪器程控。
 
-> 当前版本：工程骨架与最小主窗口已就绪，采集、显示、通信与存储能力按模块逐步加入。
+> 当前版本：工程骨架、数据契约与模块验证入口已就绪，采集、显示、通信与存储能力按模块逐步加入。
 
 ## 功能设计
 
@@ -24,15 +24,13 @@
 ```
 RFSuite/
 ├── CMakeLists.txt        # 顶层构建脚本（Qt6 + CMake）
-├── src/                  # core / widgets / app 分层源码
+├── src/                  # core / widgets / app / labs / tests 分层源码
 ├── resources/            # QSS 主题与资源文件
-├── docs/                 # 架构设计、通信协议、联调记录
-├── labs/                 # 各模块独立实验窗口（--lab=N 启动）
-└── tests/                # 自测入口（--selftest=N）
+└── docs/                 # 架构设计、通信协议、联调记录
 ```
 
-> 当前已建立 `CMakeLists.txt` 与 `src/app` 主窗口骨架；
-> `core`、`widgets`、`labs`、`tests` 随对应模块迭代补齐。
+> 当前已建立 `CMakeLists.txt`、`src/core` 数据契约、`src/app` 主窗口
+> 与 `src/labs` 验证窗口；`widgets`、`tests` 随对应模块迭代补齐。
 
 ## 构建
 
@@ -46,9 +44,10 @@ cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Debug \
       -DCMAKE_PREFIX_PATH=D:/Qt/6.11.2/mingw_64
 cmake --build build --parallel 4
 ./build/RFSuite.exe                 # 启动主窗口
+./build/RFSuite.exe --lab=3        # 信号槽连接类型验证
 ```
 
-`--lab=N` 与 `--selftest=N` 实验入口随对应模块加入后启用。
+`--lab=3` 已可用；其余 `--lab=N` / `--selftest=N` 入口随对应模块加入后启用。
 `build/` 与 `release/` 不纳入版本管理；发布时用 `windeployqt` 补齐运行库。
 
 ## 开发约定
